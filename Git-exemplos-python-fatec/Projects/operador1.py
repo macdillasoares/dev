@@ -1,0 +1,9 @@
+# Variável do tipo string (texto) 
+nome = "Joãoa Silva" # Variável do tipo integer (número inteiro) 
+idade = 25 # Variável do tipo float (número decimal) 
+altura = 1.75 # Variável do tipo boolean (verdadeiro ou falso) 
+ativo = True # Exibindo as variáveis 
+print("Nome:", nome)
+print("Idade:", idade) 
+print("Altura:", altura)
+print("Ativo:", ativo)
