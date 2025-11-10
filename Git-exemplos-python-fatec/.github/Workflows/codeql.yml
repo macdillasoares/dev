@@ -1,4 +1,4 @@
-name: "CodeQL"
+name: "CodeQL Advanced"
 
 on:
   push:
@@ -11,6 +11,7 @@ on:
 jobs:
   analyze:
     name: Analyze (${{ matrix.language }})
+    # Use macOS only for Swift, otherwise use Ubuntu
     runs-on: ${{ (matrix.language == 'swift' && 'macos-latest') || 'ubuntu-latest' }}
     permissions:
       security-events: write
@@ -21,16 +22,24 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: ['python']
+        include:
+          - language: 'javascript-typescript'
+          - language: 'python'
+          - language: 'go'
+          - language: 'java-kotlin'
+          - language: 'swift'
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # Initialize CodeQL
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v4
         with:
           languages: ${{ matrix.language }}
+          # If you need custom build modes, add build-mode entries to the matrix and uncomment below
+          # build-mode: ${{ matrix.build-mode }}
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v4
