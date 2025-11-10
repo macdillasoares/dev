@@ -47,12 +47,18 @@ workflows_dispatch:
 
 jobs:
     build:
-    runs-on: ubuntu-latest
-#deploy stg
-    environment:
-        name: stg
+        runs-on: ubuntu-latest
+    
+        steps:
+        - name: build and deploy
+        run: echo building the codes
+
+    #deploy stg
+    deploy-development:
+        runs-on: ubuntu-latest
+        environment: development
         #url:${{vars.url}}
-    needs: deploy_dev
+    needs: deploy_development
     steps
         -name: repo checkout
         uses: actions/checkout@v3
@@ -78,12 +84,18 @@ workflows_dispatch:
 
 jobs:
     build:
-    runs-on: ubuntu-latest
-#deploy production
-    environment:
-        name: production
+        runs-on: ubuntu-latest
+    
+        steps:
+        - name: build and deploy
+        run: echo building the codes
+
+    #deploy desvolvimento
+    deploy-development:
+        runs-on: ubuntu-latest
+        environment: development
         #url:${{vars.url}}
-    needs: deploy_stg
+    needs: deploy_staging
     steps
         -name: repo checkout
         uses: actions/checkout@v3
