@@ -35,7 +35,18 @@ jobs:
          #   target ${{ secrets.HOSTINGER_TARGET }}
 
 #STAGING
-deploy-stg:
+name: alunos_fatec_deploy_stg
+on:
+  push:
+    branches:
+      - main
+   pull_request:
+      branches:
+        - main
+workflows_dispatch:
+
+jobs:
+    build:
     runs-on: ubuntu-latest
 #deploy stg
     environment:
@@ -55,7 +66,18 @@ deploy-stg:
          #   target ${{ secrets.HOSTINGER_TARGET }}
 
 #Production
-deploy-production:
+name: alunos_fatec_deploy_prd
+on:
+  push:
+    branches:
+      - main
+   pull_request:
+      branches:
+        - main
+workflows_dispatch:
+
+jobs:
+    build:
     runs-on: ubuntu-latest
 #deploy production
     environment:
