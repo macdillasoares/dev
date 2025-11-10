@@ -1,0 +1,75 @@
+name: alunos_fatec_deploy_dev
+on:
+  push:
+    branches:
+      - main
+   pull_request:
+      branches:
+        - main
+workflows_dispatch:
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+    
+        steps:
+        - name: build and deploy
+        run: echo building the codes
+
+    #deploy desvolvimento
+    deploy-development:
+        runs-on: ubuntu-latest
+        environment: development
+        #url:${{vars.url}}
+    needs: build
+    steps
+        -name: repo checkout
+        uses: actions/checkout@v3
+       # - name: hostinger Deployment
+        #uses: easingthemes/ssh-deploy@v2.1.5
+        #with:
+         #   ssh_pivate_key: ${{ secrets.HOSTINGER_SSH_KEY }}
+         #   remoteuser: ${{ secrets.HOSTINGER_USER }}
+         #   remote_host: ${{ secrets.HOSTINGER_HOST }}
+         #   remote_port: ${{ secrets.HOSTINGER_PORT }}
+         #   target ${{ secrets.HOSTINGER_TARGET }}
+
+#STAGING
+deploy-stg:
+    runs-on: ubuntu-latest
+#deploy stg
+    environment:
+        name: stg
+        #url:${{vars.url}}
+    needs: deploy_dev
+    steps
+        -name: repo checkout
+        uses: actions/checkout@v3
+       # - name: hostinger Deployment
+        #uses: easingthemes/ssh-deploy@v2.1.5
+        #with:
+         #   ssh_pivate_key: ${{ secrets.HOSTINGER_SSH_KEY }}
+         #   remoteuser: ${{ secrets.HOSTINGER_USER }}
+         #   remote_host: ${{ secrets.HOSTINGER_HOST }}
+         #   remote_port: ${{ secrets.HOSTINGER_PORT }}
+         #   target ${{ secrets.HOSTINGER_TARGET }}
+
+#Production
+deploy-production:
+    runs-on: ubuntu-latest
+#deploy production
+    environment:
+        name: production
+        #url:${{vars.url}}
+    needs: deploy_stg
+    steps
+        -name: repo checkout
+        uses: actions/checkout@v3
+       # - name: hostinger Deployment
+        #uses: easingthemes/ssh-deploy@v2.1.5
+        #with:
+         #   ssh_pivate_key: ${{ secrets.HOSTINGER_SSH_KEY }}
+         #   remoteuser: ${{ secrets.HOSTINGER_USER }}
+         #   remote_host: ${{ secrets.HOSTINGER_HOST }}
+         #   remote_port: ${{ secrets.HOSTINGER_PORT }}
+         #   target ${{ secrets.HOSTINGER_TARGET }}
